@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<style>
+    div.graph{
+      margin-top:150px;
+      padding: 0 15%;
+    }
+    .chart rect{
+      /*stroke-dashoffset:1600;
+      animation: dash 5s linear;
+      animation-fill-mode: forwards;
+      fill:#4da6ff;
+      fill:white;*/
+    }
+    @keyframes outline {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+			div.bar {
+				display: inline-block;
+				width: 150px;
+				height: 300px;
+				background-color: #1a75ff;
+				margin: 10px;
+			}
+      .chart{
+      
+      }
+       rect:hover{
+        fill:#1a8cff;
+      }
+		</style>
+    </head>
+    <body>
+      <div class="graph">
+        <svg class="chart">
+
+        </svg>
+      </div>
+        <script type="text/javascript">
+
+          var data = [4, 8, 15, 16, 23, 30];
+
+          var maxData = d3.max(data);
+
+          var width = 500,
+              barHeight = 100;
+
+          var x = d3.scale.linear()
+              .domain([0, maxData])
+              .rangeRound([0, width]);
+
+          var chart = d3.select("svg")
+              .attr("width", width)
+              .attr("height", barHeight * data.length)
+              .style("margin-left","auto")
+              .style("margin-right","auto")
+              .style("transform","rotate(-90deg)")
+              .style("border","1px solid black");
+
+          var bar = chart.selectAll("g")
+              .data(data)
+              .enter().append("g")
+              .attr("transform", function(d, i) { return "translate(0," + i * barHeight +  ")"; });
+              bar.append("rect")
+              .attr("width", x)
+              .attr("height", barHeight - 3)//spacing between bars
+              .style("stroke","black")
+              .style("stroke-width","2")
+              .style("opacity",".7")
+              .style("fill","#4da6ff")
+              .style("stroke-dasharray","1500")
+              .style("stroke-dashoffset","1600")
+              .style("animation","outline 5s linear")
+              .style("animation-fill-mode","forwards");
+
+          /*var path = document.querySelector('.path');
+          var length = path.getTotalLength();*/
+      /*  .on("mouseover", function(){
+
+          var path = document.querySelector('.chart');
+          var length = path.getTotalLength();
+          // Clear any previous transition
+          path.style.transition = path.style.WebkitTransition =
+            'none';
+          // Set up the starting positions
+          path.style.strokeDasharray = length + ' ' + length;
+          path.style.strokeDashoffset = length;
+          // Trigger a layout so styles are calculated & the browser
+          // picks up the starting position before animating
+          path.getBoundingClientRect();
+          // Define our transition
+          path.style.transition = path.style.WebkitTransition =
+            'stroke-dashoffset 2s ease-in-out';
+          // Go!
+          path.style.strokeDashoffset = '0';
+        });*/
+
+    /*bar.append("text")
+        .attr("x", function(d) { return x(d) - 1; })
+        .attr("y", barHeight / 2)
+        .attr("dy", ".35em")
+        .text(function(d) { return d; });*/
+        </script>
+    </body>
+</html>
