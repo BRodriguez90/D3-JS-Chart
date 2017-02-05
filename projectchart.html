@@ -31,7 +31,7 @@
 				margin: 10px;
 			}
       .chart{
-      
+
       }
        rect:hover{
         fill:#1a8cff;
@@ -40,9 +40,7 @@
     </head>
     <body>
       <div class="graph">
-        <svg class="chart">
-
-        </svg>
+        <svg class="chart"></svg>
       </div>
         <script type="text/javascript">
 
@@ -56,6 +54,13 @@
           var x = d3.scale.linear()
               .domain([0, maxData])
               .rangeRound([0, width]);
+
+          var color = d3.scale.linear()
+              .domain([0, maxData])
+              .range(["#4da6ff","#003366"]);
+          /*var stroke = d3.scale.linear()
+              .domain([0, maxData])
+              .range([]);*/
 
           var chart = d3.select("svg")
               .attr("width", width)
@@ -75,7 +80,8 @@
               .style("stroke","black")
               .style("stroke-width","2")
               .style("opacity",".7")
-              .style("fill","#4da6ff")
+              .style("fill", function(d){ return color(d)})
+              //.style("fill","#4da6ff")
               .style("stroke-dasharray","1500")
               .style("stroke-dashoffset","1600")
               .style("animation","outline 5s linear")
